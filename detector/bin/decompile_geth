@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 
 # BSD 3-Clause License
 #
@@ -142,7 +142,7 @@ try:
     logging.info("Reading from '%s'.", args.infile.name)
     efg = tac_efg.TACGraph.from_opcode(args.infile)
     logging.info("Initial EFG generation completed.")
-    
+
 # Catch a Control-C and exit with UNIX failure status 1
 except KeyboardInterrupt:
     logging.critical("\nInterrupted by user")

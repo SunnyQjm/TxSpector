@@ -137,7 +137,7 @@ class OpCode:
     def is_arithmetic(self) -> bool:
         """Predicate: opcode's result can be calculated from its inputs alone."""
         return (ADD.code <= self.code <= SIGNEXTEND.code) or \
-               (LT.code <= self.code <= BYTE.code)
+               (LT.code <= self.code <= SAR.code)
 
     def is_memory(self) -> bool:
         """Predicate: opcode operates on memory"""
@@ -154,11 +154,11 @@ class OpCode:
     def alters_flow(self) -> bool:
         """Predicate: opcode alters EVM control flow."""
         return (self.code in (JUMP.code, JUMPI.code,)) or self.possibly_halts()
-    
+
     def is_exception(self) -> bool:
         """Predicate: opcode causes the EVM to throw an exception."""
         return (self.code in (THROW.code, THROWI.code, REVERT.code)) \
-                or self.is_invalid()
+               or self.is_invalid()
 
     def halts(self) -> bool:
         """Predicate: opcode causes the EVM to halt."""
@@ -211,8 +211,12 @@ OR = OpCode("OR", 0x17, 2, 1)
 XOR = OpCode("XOR", 0x18, 2, 1)
 NOT = OpCode("NOT", 0x19, 1, 1)
 BYTE = OpCode("BYTE", 0x1a, 2, 1)
+SHL = OpCode("SHL", 0x1b, 2, 1)
+SHR = OpCode("SHR", 0x1c, 2, 1)
+SAR = OpCode("SAR", 0x1d, 2, 2)
 
 SHA3 = OpCode("SHA3", 0x20, 2, 1)
+KECCAK256 = OpCode("KECCAK256", 0x20, 2, 1)
 
 # Environmental Information
 ADDRESS = OpCode("ADDRESS", 0x30, 0, 1)
